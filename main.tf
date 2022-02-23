@@ -29,6 +29,7 @@ resource "aws_cloudwatch_metric_stream" "datadog" {
 }
 
 resource "aws_iam_role" "datadog_metric_stream" {
+  # note: https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-metric-streams-trustpolicy.html
   name               = "datadog-metric-stream"
   assume_role_policy = data.aws_iam_policy_document.datadog_metric_stream_assume.json
 }
