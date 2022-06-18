@@ -29,6 +29,6 @@ See [`example.tfvars`](example.tfvars) for usage of these variables:
 - https://aws.amazon.com/blogs/aws/cloudwatch-metric-streams-send-aws-metrics-to-partners-and-to-your-apps-in-real-time/
 - https://www.datadoghq.com/blog/amazon-cloudwatch-metric-streams-datadog/
 - https://docs.datadoghq.com/integrations/guide/aws-cloudwatch-metric-streams-with-kinesis-data-firehose/
-- Terraform resources:
+- Terraform AWS provider resources:
 	- [`aws_cloudwatch_metric_stream`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_metric_stream)
 	- [`aws_kinesis_firehose_delivery_stream`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kinesis_firehose_delivery_stream)
