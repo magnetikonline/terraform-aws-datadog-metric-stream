@@ -155,3 +155,20 @@ data "aws_iam_policy_document" "datadog_firehose_s3_backup" {
 resource "aws_s3_bucket" "datadog_firehose_backup" {
   bucket = "datadog-firehose-${data.aws_caller_identity.current.account_id}"
 }
+
+resource "aws_s3_bucket_ownership_controls" "datadog_firehose_backup" {
+  bucket = aws_s3_bucket.datadog_firehose_backup.id
+
+  rule {
+    object_ownership = "BucketOwnerEnforced"
+  }
+}
+
+resource "aws_s3_bucket_public_access_block" "datadog_firehose_backup" {
+  bucket = aws_s3_bucket.datadog_firehose_backup.id
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
