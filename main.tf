@@ -30,8 +30,14 @@ resource "aws_cloudwatch_metric_stream" "datadog" {
 
 resource "aws_iam_role" "datadog_metric_stream" {
   # note: https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-metric-streams-trustpolicy.html
-  name               = "datadog-metric-stream"
-  assume_role_policy = data.aws_iam_policy_document.datadog_metric_stream_assume_role.json
+  name                = "datadog-metric-stream"
+  assume_role_policy  = data.aws_iam_policy_document.datadog_metric_stream_assume_role.json
+  managed_policy_arns = []
+
+  inline_policy {
+    name   = "firehose"
+    policy = data.aws_iam_policy_document.datadog_metric_stream_firehose.json
+  }
 }
 
 data "aws_iam_policy_document" "datadog_metric_stream_assume_role" {
@@ -43,12 +49,6 @@ data "aws_iam_policy_document" "datadog_metric_stream_assume_role" {
       type        = "Service"
     }
   }
-}
-
-resource "aws_iam_role_policy" "datadog_metric_stream_firehose" {
-  name   = "firehose"
-  policy = data.aws_iam_policy_document.datadog_metric_stream_firehose.json
-  role   = aws_iam_role.datadog_metric_stream.id
 }
 
 data "aws_iam_policy_document" "datadog_metric_stream_firehose" {
@@ -108,8 +108,14 @@ resource "aws_kinesis_firehose_delivery_stream" "datadog" {
 }
 
 resource "aws_iam_role" "datadog_firehose" {
-  name               = "datadog-firehose"
-  assume_role_policy = data.aws_iam_policy_document.datadog_firehose_assume_role.json
+  name                = "datadog-firehose"
+  assume_role_policy  = data.aws_iam_policy_document.datadog_firehose_assume_role.json
+  managed_policy_arns = []
+
+  inline-policy {
+    name   = "s3-backup"
+    policy = data.aws_iam_policy_document.datadog_firehose_s3_backup.json
+  }
 }
 
 data "aws_iam_policy_document" "datadog_firehose_assume_role" {
@@ -121,12 +127,6 @@ data "aws_iam_policy_document" "datadog_firehose_assume_role" {
       type        = "Service"
     }
   }
-}
-
-resource "aws_iam_role_policy" "datadog_firehose_s3_backup" {
-  name   = "s3-backup"
-  policy = data.aws_iam_policy_document.datadog_firehose_s3_backup.json
-  role   = aws_iam_role.datadog_firehose.id
 }
 
 data "aws_iam_policy_document" "datadog_firehose_s3_backup" {
