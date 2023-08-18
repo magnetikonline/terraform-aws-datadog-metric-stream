@@ -31,10 +31,10 @@ resource "aws_cloudwatch_metric_stream" "datadog" {
 resource "aws_iam_role" "datadog_metric_stream" {
   # note: https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-metric-streams-trustpolicy.html
   name               = "datadog-metric-stream"
-  assume_role_policy = data.aws_iam_policy_document.datadog_metric_stream_assume.json
+  assume_role_policy = data.aws_iam_policy_document.datadog_metric_stream_assume_role.json
 }
 
-data "aws_iam_policy_document" "datadog_metric_stream_assume" {
+data "aws_iam_policy_document" "datadog_metric_stream_assume_role" {
   statement {
     actions = ["sts:AssumeRole"]
 
@@ -109,10 +109,10 @@ resource "aws_kinesis_firehose_delivery_stream" "datadog" {
 
 resource "aws_iam_role" "datadog_firehose" {
   name               = "datadog-firehose"
-  assume_role_policy = data.aws_iam_policy_document.datadog_firehose_assume.json
+  assume_role_policy = data.aws_iam_policy_document.datadog_firehose_assume_role.json
 }
 
-data "aws_iam_policy_document" "datadog_firehose_assume" {
+data "aws_iam_policy_document" "datadog_firehose_assume_role" {
   statement {
     actions = ["sts:AssumeRole"]
 

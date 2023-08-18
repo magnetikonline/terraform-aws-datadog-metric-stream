@@ -3,11 +3,6 @@ variable "datadog_api_key" {
   sensitive = true
 }
 
-variable "datadog_metric_stream_namespace_list" {
-  type    = list(string)
-  default = []
-}
-
 variable "datadog_firehose_endpoint" {
   type = string
 
@@ -19,4 +14,9 @@ variable "datadog_firehose_endpoint" {
 
     error_message = "Invalid Datadog Kinesis Firehose endpoint."
   }
+}
+
+variable "datadog_metric_stream_namespace_list" {
+  type    = list(string)
+  default = []
 }
