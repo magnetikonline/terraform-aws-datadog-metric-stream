@@ -112,7 +112,7 @@ resource "aws_iam_role" "datadog_firehose" {
   assume_role_policy  = data.aws_iam_policy_document.datadog_firehose_assume_role.json
   managed_policy_arns = []
 
-  inline-policy {
+  inline_policy {
     name   = "s3-backup"
     policy = data.aws_iam_policy_document.datadog_firehose_s3_backup.json
   }
