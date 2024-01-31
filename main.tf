@@ -90,11 +90,12 @@ resource "aws_kinesis_firehose_delivery_stream" "datadog" {
     }
 
     s3_configuration {
-      bucket_arn         = aws_s3_bucket.datadog_firehose_backup.arn
-      buffering_interval = 300 # seconds
-      buffering_size     = 5   # MB
-      prefix             = "metrics/"
-      role_arn           = aws_iam_role.datadog_firehose.arn
+      bucket_arn          = aws_s3_bucket.datadog_firehose_backup.arn
+      buffering_interval  = 300 # seconds
+      buffering_size      = 5   # MB
+      compression_format  = "UNCOMPRESSED"
+      error_output_prefix = "metrics/"
+      role_arn            = aws_iam_role.datadog_firehose.arn
 
       cloudwatch_logging_options {
         enabled = false
