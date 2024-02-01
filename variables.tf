@@ -20,3 +20,13 @@ variable "datadog_metric_stream_namespace_list" {
   type    = list(string)
   default = []
 }
+
+variable "datadog_buffering_interval_seconds" {
+  type    = number
+  default = 60
+
+  validation {
+    condition     = var.datadog_buffering_interval_seconds >= 0 && var.datadog_buffering_interval_seconds <= 900
+    error_message = "Allowed buffering interval between 0-900 seconds."
+  }
+}

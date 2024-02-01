@@ -18,17 +18,21 @@ Resources created and their interplay:
 
 ## Terraform variables
 
-See [`example.tfvars`](example.tfvars) for usage of these variables:
+See [`example.tfvars`](example.tfvars) for usage of these variables.
 
-- `datadog_api_key`: Your Datadog account API key, which is sent along with HTTP push requests made by the Kinesis Data Firehose delivery stream.
-- `datadog_firehose_endpoint`: HTTPS endpoint for delivery of metrics payloads into Datadog. Will differ based on the location of your Datadog account (US/EU).
-- `datadog_metric_stream_namespace_list`: List of CloudWatch metric namespaces for streamed delivery into Datadog. **Note:** Metrics which _are not_ delivered to Datadog via the stream will continue to pulled by Datadog using the CloudWatch metric API polling method.
+| Variable                               | Description                                                                                                                                                                                                |
+|:---------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `datadog_api_key`                      | Datadog API key, sent along with HTTP push requests made by the Kinesis Data Firehose delivery stream.                                                                                                     |
+| `datadog_firehose_endpoint`            | HTTPS endpoint for delivery of metrics payloads into Datadog. Will differ based on the location of your Datadog account (US/EU).                                                                           |
+| `datadog_metric_stream_namespace_list` | List of CloudWatch metric namespaces for streamed delivery. **Note:** Metrics which _are not_ delivered to Datadog via the stream will continue to pulled using the classic CloudWatch API polling method. |
+| `datadog_buffering_interval_seconds`   | How often Kinesis Data Firehose metric buffer is flushed to the HTTP endpoint. Smaller values result in metrics appearing faster, at the cost of a greater number of Datadog HTTP API calls.               |
 
 ## Related
 
 - https://aws.amazon.com/blogs/aws/cloudwatch-metric-streams-send-aws-metrics-to-partners-and-to-your-apps-in-real-time/
 - https://www.datadoghq.com/blog/amazon-cloudwatch-metric-streams-datadog/
 - https://docs.datadoghq.com/integrations/guide/aws-cloudwatch-metric-streams-with-kinesis-data-firehose/
+- https://aws.amazon.com/about-aws/whats-new/2023/12/amazon-kinesis-data-firehose-zero-buffering/
 - Terraform AWS provider resources:
 	- [`aws_cloudwatch_metric_stream`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_metric_stream)
 	- [`aws_kinesis_firehose_delivery_stream`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kinesis_firehose_delivery_stream)

@@ -70,7 +70,7 @@ resource "aws_kinesis_firehose_delivery_stream" "datadog" {
   http_endpoint_configuration {
     name               = "Datadog"
     access_key         = var.datadog_api_key
-    buffering_interval = 60 # seconds
+    buffering_interval = var.datadog_buffering_interval_seconds
     buffering_size     = 4  # MB
     retry_duration     = 60 # seconds
     role_arn           = aws_iam_role.datadog_firehose.arn
